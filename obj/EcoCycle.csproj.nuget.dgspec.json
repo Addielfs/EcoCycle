@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\EcoCycle\\EcoCycle.csproj": {}
+    "C:\\Users\\Irving\\source\\repos\\EcoCycle\\EcoCycle.csproj": {}
   },
   "projects": {
-    "C:\\EcoCycle\\EcoCycle.csproj": {
+    "C:\\Users\\Irving\\source\\repos\\EcoCycle\\EcoCycle.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\EcoCycle\\EcoCycle.csproj",
+        "projectUniqueName": "C:\\Users\\Irving\\source\\repos\\EcoCycle\\EcoCycle.csproj",
         "projectName": "EcoCycle",
-        "projectPath": "C:\\EcoCycle\\EcoCycle.csproj",
-        "packagesPath": "C:\\Users\\jesus\\.nuget\\packages\\",
-        "outputPath": "C:\\EcoCycle\\obj\\",
+        "projectPath": "C:\\Users\\Irving\\source\\repos\\EcoCycle\\EcoCycle.csproj",
+        "packagesPath": "C:\\Users\\Irving\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Irving\\source\\repos\\EcoCycle\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\jesus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Irving\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -52,6 +52,18 @@
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[10.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.9, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
