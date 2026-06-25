@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="EcoCycle.API/EcoCycle.API.csproj" />
+  <Project Path="EcoCycle.Application/EcoCycle.Application.csproj" />
+  <Project Path="EcoCycle.Domain/EcoCycle.Domain.csproj" />
+  <Project Path="EcoCycle.Infrastructure/EcoCycle.Infrastructure.csproj" />
+  <Project Path="EcoCycle.Web/EcoCycle.Web.csproj" />
+</Solution>
