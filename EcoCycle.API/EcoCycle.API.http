@@ -1,0 +1,6 @@
+@EcoCycle.API_HostAddress = http://localhost:5049
+
+GET {{EcoCycle.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
