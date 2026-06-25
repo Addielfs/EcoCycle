@@ -1,0 +1,78 @@
+@using System.Text.Json
+@model List<JsonElement>
+
+@{
+    ViewData["Title"] = "Configuraci\u00F3n";
+}
+
+<h2>Configuraci\u00F3n del Sistema</h2>
+<hr />
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover shadow-sm">
+        <thead class="table-success">
+            <tr>
+                <th>Clave</th>
+                <th>Valor</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><strong>@item.GetProperty("clave").GetString()</strong></td>
+                    <td>
+                        <span id="valor-@item.GetProperty("idConfiguracion").GetInt32()">
+                            @item.GetProperty("valor").GetString()
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" onclick="editar(@item.GetProperty("idConfiguracion").GetInt32(), '@item.GetProperty("clave").GetString()', '@item.GetProperty("valor").GetString()')">
+                            Editar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="Update" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Configuraci\u00F3n</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="idConfiguracion" id="editId" />
+                    <div class="mb-3">
+                        <label class="form-label">Clave</label>
+                        <input type="text" class="form-control" id="editClave" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Valor</label>
+                        <input type="text" name="valor" class="form-control" id="editValor" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function editar(id, clave, valor) {
+            document.getElementById('editId').value = id;
+            document.getElementById('editClave').value = clave;
+            document.getElementById('editValor').value = valor;
+            new bootstrap.Modal(document.getElementById('editModal')).show();
+        }
+    </script>
+}

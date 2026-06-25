@@ -1,0 +1,30 @@
+﻿@using System.Text.Json
+@model JsonElement
+
+@{
+    ViewData["Title"] = "Editar Material";
+    var idMaterial = Model.GetProperty("idMaterial").GetInt32();
+    var nombreMaterial = Model.GetProperty("nombreMaterial").GetString();
+    var descripcion = Model.GetProperty("descripcion").GetString();
+}
+
+<h2>Editar Material</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" name="idMaterial" value="@idMaterial" />
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" name="nombreMaterial" class="form-control" value="@nombreMaterial" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descripci&oacute;n</label>
+                <textarea name="descripcion" class="form-control">@descripcion</textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>

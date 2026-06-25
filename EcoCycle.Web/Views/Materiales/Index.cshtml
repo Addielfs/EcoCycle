@@ -1,0 +1,52 @@
+﻿@using System.Text.Json
+@model List<JsonElement>
+
+@{
+    ViewData["Title"] = "Materiales";
+    var esAdmin = ViewBag.EsAdmin == true;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Materiales</h2>
+    @if (esAdmin)
+    {
+        <a asp-action="Create" class="btn btn-success">+ Nuevo Material</a>
+    }
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover shadow-sm">
+        <thead class="table-success">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripci&oacute;n</th>
+                @if (esAdmin)
+                {
+                    <th>Acciones</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.GetProperty("idMaterial").GetInt32()</td>
+                    <td>@item.GetProperty("nombreMaterial").GetString()</td>
+                    <td>@item.GetProperty("descripcion").GetString()</td>
+                    @if (esAdmin)
+                    {
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.GetProperty("idMaterial").GetInt32()"
+                               class="btn btn-warning btn-sm">Editar</a>
+                            <form asp-action="Delete" method="post" onsubmit="return confirm('¿Eliminar este material?')" style="display:inline">
+                                <input type="hidden" name="id" value="@item.GetProperty("idMaterial").GetInt32()" />
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

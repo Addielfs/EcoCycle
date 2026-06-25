@@ -1,0 +1,25 @@
+@using System.Text.Json
+@model JsonElement
+
+@{
+    ViewData["Title"] = "Editar Recompensa";
+    var idRecompensa = Model.GetProperty("idRecompensa").GetInt32();
+    var puntos = Model.GetProperty("puntos").GetInt32();
+}
+
+<h2>Editar Recompensa</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" name="idRecompensa" value="@idRecompensa" />
+            <div class="mb-3">
+                <label class="form-label">Puntos</label>
+                <input type="number" name="puntos" class="form-control" value="@puntos" required min="1" />
+            </div>
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>

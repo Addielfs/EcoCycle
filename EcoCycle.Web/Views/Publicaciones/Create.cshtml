@@ -1,0 +1,79 @@
+@using System.Text.Json
+@model List<JsonElement>
+
+@{
+    ViewData["Title"] = "Nueva Publicaci\u00F3n";
+    var materiales = ViewBag.Materiales as List<JsonElement> ?? new List<JsonElement>();
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Nueva Publicaci&oacute;n</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Material</label>
+                        <select name="idMaterial" class="form-select" required>
+                            <option value="">Seleccione un material</option>
+                            @foreach (var mat in materiales)
+                            {
+                                <option value="@mat.GetProperty("idMaterial").GetInt32()">
+                                    @mat.GetProperty("nombreMaterial").GetString()
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripci&oacute;n</label>
+                        <textarea name="descripcion" class="form-control" rows="3" maxlength="255"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Cantidad (kg)</label>
+                        <input type="number" name="cantidad" class="form-control" step="0.01" min="0.01" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Ubicaci&oacute;n</label>
+                        <input type="text" name="ubicacion" id="ubicacion" class="form-control" maxlength="255" />
+                    </div>
+                    <input type="hidden" name="latitud" id="latitud" />
+                    <input type="hidden" name="longitud" id="longitud" />
+                    <div class="mb-3">
+                        <label class="form-label">Ubicaci&oacute;n en el mapa</label>
+                        <div id="map" style="height: 300px; border-radius: 6px;"></div>
+                        <div class="form-text">Haga clic en el mapa para marcar la ubicaci&oacute;n.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Imagen</label>
+                        <input type="file" name="imagenFile" class="form-control" accept="image/*" />
+                        <div class="form-text">Opcional. Formatos: JPG, PNG, GIF, WebP. M&aacute;x: 5 MB.</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-success">Publicar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var map = L.map('map').setView([14.6349, -90.5069], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var marker;
+
+        map.on('click', function (e) {
+            if (marker) map.removeLayer(marker);
+            marker = L.marker(e.latlng).addTo(map);
+            document.getElementById('latitud').value = e.latlng.lat.toFixed(6);
+            document.getElementById('longitud').value = e.latlng.lng.toFixed(6);
+        });
+    </script>
+}

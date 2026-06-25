@@ -1,0 +1,95 @@
+@using System.Text.Json
+@model JsonElement
+
+@{
+    ViewData["Title"] = "Reportes";
+}
+
+<h2>Reporte General</h2>
+<hr />
+
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-success shadow">
+            <div class="card-body text-center">
+                <h5 class="card-title">Materiales</h5>
+                <h2 class="display-4">@Model.GetProperty("totalMateriales").GetInt32()</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-info shadow">
+            <div class="card-body text-center">
+                <h5 class="card-title">Publicaciones</h5>
+                <h2 class="display-4">@Model.GetProperty("totalPublicaciones").GetInt32()</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-primary shadow">
+            <div class="card-body text-center">
+                <h5 class="card-title">Centros</h5>
+                <h2 class="display-4">@Model.GetProperty("totalCentros").GetInt32()</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-secondary shadow">
+            <div class="card-body text-center">
+                <h5 class="card-title">Usuarios</h5>
+                <h2 class="display-4">@Model.GetProperty("totalUsuarios").GetInt32()</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-warning shadow">
+            <div class="card-body text-center">
+                <h5 class="card-title">Puntos Totales</h5>
+                <h2 class="display-4">@Model.GetProperty("totalPuntos").GetInt32()</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mt-4">
+    <div class="card-header">
+        <h5 class="mb-0">Últimas Publicaciones</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Material</th>
+                        <th>Usuario</th>
+                        <th>Cantidad</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @try
+                    {
+                        var publicaciones = Model.GetProperty("ultimasPublicaciones").EnumerateArray();
+                        @foreach (var pub in publicaciones)
+                        {
+                            <tr>
+                                <td>@pub.GetProperty("idPublicacion").GetInt32()</td>
+                                <td>@pub.GetProperty("nombreMaterial").GetString()</td>
+                                <td>@pub.GetProperty("correoUsuario").GetString()</td>
+                                <td>@pub.GetProperty("cantidad").GetDecimal() kg</td>
+                                <td>@pub.GetProperty("fechaPublicacion").GetDateTime().ToLocalTime().ToString("dd/MM/yyyy")</td>
+                            </tr>
+                        }
+                    }
+                    catch
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center">No hay publicaciones</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

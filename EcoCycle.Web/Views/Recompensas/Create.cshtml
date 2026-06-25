@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Nueva Recompensa";
+}
+
+<h2>Nueva Recompensa</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div class="mb-3">
+                <label class="form-label">ID Usuario</label>
+                <input type="number" name="idUsuario" class="form-control" required min="1" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Puntos</label>
+                <input type="number" name="puntos" class="form-control" required min="1" />
+            </div>
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>

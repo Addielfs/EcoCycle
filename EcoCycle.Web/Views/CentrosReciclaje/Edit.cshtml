@@ -1,0 +1,75 @@
+﻿@using System.Text.Json
+@model JsonElement
+
+@{
+    ViewData["Title"] = "Editar Centro";
+    var idCentro = Model.GetProperty("idCentro").GetInt32();
+    var nombreCentro = Model.GetProperty("nombreCentro").GetString();
+    var direccion = Model.GetProperty("direccion").GetString();
+    var latitud = Model.TryGetProperty("latitud", out var lt) && lt.ValueKind == System.Text.Json.JsonValueKind.Number ? lt.GetDecimal().ToString("F6") : "";
+    var longitud = Model.TryGetProperty("longitud", out var ln) && ln.ValueKind == System.Text.Json.JsonValueKind.Number ? ln.GetDecimal().ToString("F6") : "";
+    var telefono = Model.GetProperty("telefono").GetString();
+    var capacidad = Model.GetProperty("capacidad").GetInt32();
+}
+
+<h2>Editar Centro de Reciclaje</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" name="idCentro" value="@idCentro" />
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" name="nombreCentro" class="form-control" value="@nombreCentro" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Direcci&oacute;n</label>
+                <input type="text" name="direccion" id="direccion" class="form-control" value="@direccion" />
+            </div>
+            <input type="hidden" name="latitud" id="latitud" value="@latitud" />
+            <input type="hidden" name="longitud" id="longitud" value="@longitud" />
+            <div class="mb-3">
+                <label class="form-label">Ubicaci&oacute;n en el mapa</label>
+                <div id="map" style="height: 300px; border-radius: 6px;"></div>
+                <div class="form-text">Haga clic en el mapa para cambiar la ubicaci&oacute;n.</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tel&eacute;fono</label>
+                <input type="text" name="telefono" class="form-control" value="@telefono" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Capacidad (kg)</label>
+                <input type="number" name="capacidad" class="form-control" value="@capacidad" required min="0" />
+            </div>
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var lat = @(string.IsNullOrEmpty(latitud) ? "null" : latitud);
+        var lng = @(string.IsNullOrEmpty(longitud) ? "null" : longitud);
+        var center = (lat && lng) ? [lat, lng] : [14.6349, -90.5069];
+        var zoom = (lat && lng) ? 15 : 12;
+
+        var map = L.map('map').setView(center, zoom);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var marker;
+        if (lat && lng) {
+            marker = L.marker([lat, lng]).addTo(map);
+        }
+
+        map.on('click', function (e) {
+            if (marker) map.removeLayer(marker);
+            marker = L.marker(e.latlng).addTo(map);
+            document.getElementById('latitud').value = e.latlng.lat.toFixed(6);
+            document.getElementById('longitud').value = e.latlng.lng.toFixed(6);
+        });
+    </script>
+}

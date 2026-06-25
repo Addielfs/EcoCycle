@@ -1,0 +1,57 @@
+@using System.Text.Json
+@model JsonElement
+
+@{
+    ViewData["Title"] = "Mis Recompensas";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Mis Recompensas</h4>
+            </div>
+            <div class="card-body text-center">
+                <h1 class="display-1 text-success">
+                    @try { @Model.GetProperty("totalPuntos").GetInt32() } catch { <text>0</text> }
+                </h1>
+                <p class="lead">Puntos acumulados</p>
+            </div>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-header">
+                <h5 class="mb-0">Historial de Puntos</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Puntos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @try
+                        {
+                            var historial = Model.GetProperty("historial").EnumerateArray();
+                            @foreach (var item in historial)
+                            {
+                                <tr>
+                                    <td>@item.GetProperty("fechaRegistro").GetString()</td>
+                                    <td><span class="badge bg-success">+@item.GetProperty("puntos").GetInt32()</span></td>
+                                </tr>
+                            }
+                        }
+                        catch
+                        {
+                            <tr>
+                                <td colspan="2" class="text-center">No hay registros de puntos</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

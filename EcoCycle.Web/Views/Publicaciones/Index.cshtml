@@ -1,0 +1,95 @@
+@using System.Text.Json
+@model List<JsonElement>
+
+@{
+    ViewData["Title"] = "Publicaciones";
+    var idUsuarioActual = ViewBag.IdUsuario as string;
+    var esAdmin = ViewBag.EsAdmin == true;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Publicaciones</h2>
+    <a asp-action="Create" class="btn btn-success">+ Nueva Publicaci&oacute;n</a>
+</div>
+
+<div id="map" style="height: 400px; border-radius: 8px; margin-bottom: 2rem;"></div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        var idUsuarioPublicacion = item.GetProperty("idUsuario").GetInt32().ToString();
+        var puedeEliminar = esAdmin || idUsuarioActual == idUsuarioPublicacion;
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                @{
+                    var imagen = item.TryGetProperty("imagen", out var imgProp) ? imgProp.GetString() : null;
+                }
+                @if (!string.IsNullOrEmpty(imagen))
+                {
+                    <img src="@imagen" class="card-img-top" alt="Imagen de publicación"
+                         style="height: 200px; object-fit: cover;" />
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@item.GetProperty("nombreMaterial").GetString()</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        Publicado por: @item.GetProperty("correoUsuario").GetString()
+                    </h6>
+                    <p class="card-text">
+                        @item.GetProperty("descripcion").GetString()
+                    </p>
+                    <ul class="list-unstyled">
+                        <li><strong>Cantidad:</strong> @item.GetProperty("cantidad").GetDecimal() kg</li>
+                        <li><strong>Ubicaci&oacute;n:</strong> @item.GetProperty("ubicacion").GetString()</li>
+                        <li><strong>Fecha:</strong> @item.GetProperty("fechaPublicacion").GetDateTime().ToLocalTime().ToString("dd/MM/yyyy")</li>
+                    </ul>
+                </div>
+                @if (puedeEliminar)
+                {
+                    <div class="card-footer d-flex justify-content-between">
+                        <form asp-action="Delete" method="post" onsubmit="return confirm('¿Eliminar esta publicaci\u00F3n?')">
+                            <input type="hidden" name="id" value="@item.GetProperty("idPublicacion").GetInt32()" />
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        var map = L.map('map').setView([14.6349, -90.5069], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var items = @Html.Raw(JsonSerializer.Serialize(Model.Select(p => new
+        {
+            lat = p.TryGetProperty("latitud", out var lt) && lt.ValueKind == System.Text.Json.JsonValueKind.Number ? (decimal?)lt.GetDecimal() : null,
+            lng = p.TryGetProperty("longitud", out var ln) && ln.ValueKind == System.Text.Json.JsonValueKind.Number ? (decimal?)ln.GetDecimal() : null,
+            nombre = p.GetProperty("nombreMaterial").GetString(),
+            usuario = p.GetProperty("correoUsuario").GetString(),
+            descripcion = p.GetProperty("descripcion").GetString(),
+            cantidad = p.GetProperty("cantidad").GetDecimal(),
+            ubicacion = p.GetProperty("ubicacion").GetString()
+        })));
+
+        var bounds = [];
+        items.forEach(function (item) {
+            if (item.lat && item.lng) {
+                var marker = L.marker([item.lat, item.lng]).addTo(map);
+                marker.bindPopup('<b>' + item.nombre + '</b><br/>' +
+                    item.descripcion + '<br/>' +
+                    item.cantidad + ' kg<br/>' +
+                    (item.ubicacion || ''));
+                bounds.push([item.lat, item.lng]);
+            }
+        });
+
+        if (bounds.length > 0) {
+            map.fitBounds(bounds, { padding: [30, 30] });
+        }
+    </script>
+}

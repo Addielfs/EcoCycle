@@ -1,0 +1,62 @@
+@{
+    ViewData["Title"] = "Nuevo Centro de Reciclaje";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Nuevo Centro de Reciclaje</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre del Centro</label>
+                        <input type="text" name="nombreCentro" class="form-control" required maxlength="150" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Direcci&oacute;n</label>
+                        <input type="text" name="direccion" id="direccion" class="form-control" maxlength="255" />
+                    </div>
+                    <input type="hidden" name="latitud" id="latitud" />
+                    <input type="hidden" name="longitud" id="longitud" />
+                    <div class="mb-3">
+                        <label class="form-label">Ubicaci&oacute;n en el mapa</label>
+                        <div id="map" style="height: 300px; border-radius: 6px;"></div>
+                        <div class="form-text">Haga clic en el mapa para marcar la ubicaci&oacute;n.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tel&eacute;fono</label>
+                        <input type="text" name="telefono" class="form-control" maxlength="20" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Capacidad (kg)</label>
+                        <input type="number" name="capacidad" class="form-control" min="0" required />
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var map = L.map('map').setView([14.6349, -90.5069], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var marker;
+
+        map.on('click', function (e) {
+            if (marker) map.removeLayer(marker);
+            marker = L.marker(e.latlng).addTo(map);
+            document.getElementById('latitud').value = e.latlng.lat.toFixed(6);
+            document.getElementById('longitud').value = e.latlng.lng.toFixed(6);
+        });
+    </script>
+}

@@ -1,0 +1,45 @@
+@using System.Text.Json
+@model List<JsonElement>
+
+@{
+    ViewData["Title"] = "Recompensas";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Recompensas</h2>
+    <a asp-action="Create" class="btn btn-success">+ Nueva Recompensa</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover shadow-sm">
+        <thead class="table-success">
+            <tr>
+                <th>ID</th>
+                <th>ID Usuario</th>
+                <th>Puntos</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.GetProperty("idRecompensa").GetInt32()</td>
+                    <td>@item.GetProperty("idUsuario").GetInt32()</td>
+                    <td><span class="badge bg-success">@item.GetProperty("puntos").GetInt32()</span></td>
+                    <td>@item.GetProperty("fechaRegistro").GetString()</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.GetProperty("idRecompensa").GetInt32()"
+                           class="btn btn-warning btn-sm">Editar</a>
+                        <form asp-action="Delete" method="post" style="display:inline"
+                              onsubmit="return confirm('¿Eliminar esta recompensa?')">
+                            <input type="hidden" name="id" value="@item.GetProperty("idRecompensa").GetInt32()" />
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

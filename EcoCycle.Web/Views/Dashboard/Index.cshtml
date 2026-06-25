@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    var esAdmin = ViewBag.EsAdmin == true;
+}
+
+<h2>Dashboard</h2>
+<hr />
+
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-success shadow">
+            <div class="card-body text-center">
+                <h5 class="card-title">Materiales</h5>
+                <h2 class="display-4">@ViewBag.TotalMateriales</h2>
+                <p class="card-text">Registrados en el sistema</p>
+                <a asp-controller="Materiales" asp-action="Index" class="btn btn-outline-light">Ver m&aacute;s</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-info shadow">
+            <div class="card-body text-center">
+                <h5 class="card-title">Publicaciones</h5>
+                <h2 class="display-4">@ViewBag.TotalPublicaciones</h2>
+                <p class="card-text">Publicaciones activas</p>
+                <a asp-controller="Publicaciones" asp-action="Index" class="btn btn-outline-light">Ver m&aacute;s</a>
+            </div>
+        </div>
+    </div>
+    @if (esAdmin)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-primary shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Centros</h5>
+                    <h2 class="display-4">@ViewBag.TotalCentros</h2>
+                    <p class="card-text">Centros registrados</p>
+                    <a asp-controller="CentrosReciclaje" asp-action="Index" class="btn btn-outline-light">Ver m&aacute;s</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-secondary shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Usuarios</h5>
+                    <h2 class="display-4">@ViewBag.TotalUsuarios</h2>
+                    <p class="card-text">Registrados</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-warning shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Puntos Totales</h5>
+                    <h2 class="display-4">@ViewBag.TotalPuntos</h2>
+                    <p class="card-text">Otorgados en total</p>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-warning shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Mis Puntos</h5>
+                    <h2 class="display-4">@ViewBag.TotalPuntosUsuario</h2>
+                    <p class="card-text">Acumulados</p>
+                    <a asp-controller="Recompensas" asp-action="Index" class="btn btn-outline-light">Ver m&aacute;s</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
