@@ -1,0 +1,72 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstats
+*.userprefs
+packages/
+*.nupkg
+**/[Pp]ublish/
+*.dbmdl
+*.jfm
+*.csproj.user
+*.dbml.layout
+
+## Visual Studio
+.vs/
+*.sln.ide/
+*.psess
+*.vsp
+*.psrun
+.DS_Store
+
+## JetBrains Rider
+.idea/
+*.sln.iml
+
+## NuGet
+**/[Ll]ib/
+**/packages/
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## VS Code
+.vscode/
+*.code-workspace
+
+## ASP.NET Core
+appsettings.*.json
+!appsettings.Development.json
+*.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+## Secrets
+**/appsettings.*.local.json
+**/*.secret.json
+**/secrets.json
+
+## Temp files
+*.tmp
+*.swp
+*~
+Thumbs.db
