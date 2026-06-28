@@ -221,4 +221,6 @@ Los usuarios solo pueden eliminar/editar sus propias publicaciones. El campo `Id
 
 ## Licencia
 
-Este proyecto es de uso educativo y demostrativo.
+
+Este proyecto cuenta con la licencia de dios.
+Proyecto de uso educativo y demostrativo 
