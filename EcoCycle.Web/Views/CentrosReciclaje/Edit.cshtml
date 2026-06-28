@@ -12,39 +12,46 @@
     var capacidad = Model.GetProperty("capacidad").GetInt32();
 }
 
-<h2>Editar Centro de Reciclaje</h2>
-<hr />
+<div class="page-header">
+    <h2><i class="bi bi-pencil me-2"></i>Editar Centro de Reciclaje</h2>
+</div>
 
-<div class="row">
+<div class="row fade-in">
     <div class="col-md-6">
-        <form asp-action="Edit" method="post">
-            <input type="hidden" name="idCentro" value="@idCentro" />
-            <div class="mb-3">
-                <label class="form-label">Nombre</label>
-                <input type="text" name="nombreCentro" class="form-control" value="@nombreCentro" required />
+        <div class="card shadow">
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" name="idCentro" value="@idCentro" />
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" name="nombreCentro" class="form-control" value="@nombreCentro" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Direcci&oacute;n</label>
+                        <input type="text" name="direccion" id="direccion" class="form-control" value="@direccion" />
+                    </div>
+                    <input type="hidden" name="latitud" id="latitud" value="@latitud" />
+                    <input type="hidden" name="longitud" id="longitud" value="@longitud" />
+                    <div class="mb-3">
+                        <label class="form-label">Ubicaci&oacute;n en el mapa</label>
+                        <div id="map" style="height: 280px; border-radius: 10px;" class="border border-secondary border-opacity-25"></div>
+                        <div class="form-text mt-1">Haga clic en el mapa para cambiar la ubicaci&oacute;n.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tel&eacute;fono</label>
+                        <input type="text" name="telefono" class="form-control" value="@telefono" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Capacidad (kg)</label>
+                        <input type="number" name="capacidad" class="form-control" value="@capacidad" required min="0" />
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-success"><i class="bi bi-check-lg me-1"></i>Guardar</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Direcci&oacute;n</label>
-                <input type="text" name="direccion" id="direccion" class="form-control" value="@direccion" />
-            </div>
-            <input type="hidden" name="latitud" id="latitud" value="@latitud" />
-            <input type="hidden" name="longitud" id="longitud" value="@longitud" />
-            <div class="mb-3">
-                <label class="form-label">Ubicaci&oacute;n en el mapa</label>
-                <div id="map" style="height: 300px; border-radius: 6px;"></div>
-                <div class="form-text">Haga clic en el mapa para cambiar la ubicaci&oacute;n.</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Tel&eacute;fono</label>
-                <input type="text" name="telefono" class="form-control" value="@telefono" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Capacidad (kg)</label>
-                <input type="number" name="capacidad" class="form-control" value="@capacidad" required min="0" />
-            </div>
-            <button type="submit" class="btn btn-success">Guardar</button>
-            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-        </form>
+        </div>
     </div>
 </div>
 

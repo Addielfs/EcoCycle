@@ -6,38 +6,43 @@
     var esAdmin = ViewBag.EsAdmin == true;
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Centros de Reciclaje</h2>
+<div class="page-header d-flex justify-content-between align-items-center">
+    <h2><i class="bi bi-building me-2"></i>Centros de Reciclaje</h2>
     @if (esAdmin)
     {
-        <a asp-action="Create" class="btn btn-success">+ Nuevo Centro</a>
+        <a asp-action="Create" class="btn btn-success"><i class="bi bi-plus-lg me-1"></i> Nuevo Centro</a>
     }
 </div>
 
-<div id="map" style="height: 400px; border-radius: 8px; margin-bottom: 2rem;"></div>
+<div id="map" style="height: 350px; border-radius: 12px; margin-bottom: 2rem;" class="shadow-sm"></div>
 
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100">
+        <div class="col-md-4 mb-4 fade-in">
+            <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">@item.GetProperty("nombreCentro").GetString()</h5>
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="rounded-circle p-2 me-3" style="background: var(--accent-glow); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-building text-success"></i>
+                        </div>
+                        <h5 class="card-title mb-0">@item.GetProperty("nombreCentro").GetString()</h5>
+                    </div>
                     <ul class="list-unstyled">
-                        <li><strong>Direcci&oacute;n:</strong> @item.GetProperty("direccion").GetString()</li>
-                        <li><strong>Tel&eacute;fono:</strong> @item.GetProperty("telefono").GetString()</li>
-                        <li><strong>Capacidad:</strong> @item.GetProperty("capacidad").GetInt32() kg</li>
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2 text-muted"></i>@item.GetProperty("direccion").GetString()</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2 text-muted"></i>@item.GetProperty("telefono").GetString()</li>
+                        <li><i class="bi bi-box-seam me-2 text-muted"></i>Capacidad: <strong>@item.GetProperty("capacidad").GetInt32() kg</strong></li>
                     </ul>
                 </div>
                 @if (esAdmin)
                 {
-                    <div class="card-footer">
+                    <div class="card-footer border-0 bg-transparent pt-0">
                         <a asp-action="Edit" asp-route-id="@item.GetProperty("idCentro").GetInt32()"
-                           class="btn btn-warning btn-sm">Editar</a>
+                           class="btn btn-warning btn-sm"><i class="bi bi-pencil me-1"></i>Editar</a>
                         <form asp-action="Delete" method="post" style="display:inline"
                               onsubmit="return confirm('¿Eliminar este centro?')">
                             <input type="hidden" name="id" value="@item.GetProperty("idCentro").GetInt32()" />
-                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash me-1"></i>Eliminar</button>
                         </form>
                     </div>
                 }

@@ -3,69 +3,70 @@
     var esAdmin = ViewBag.EsAdmin == true;
 }
 
-<h2>Dashboard</h2>
-<hr />
+<div class="page-header">
+    <h2><i class="bi bi-speedometer2 me-2"></i>Dashboard</h2>
+</div>
 
 <div class="row mt-4">
-    <div class="col-md-4 mb-4">
-        <div class="card text-white bg-success shadow">
+    <div class="col-md-4 mb-4 fade-in">
+        <div class="card card-dashboard green">
             <div class="card-body text-center">
                 <h5 class="card-title">Materiales</h5>
                 <h2 class="display-4">@ViewBag.TotalMateriales</h2>
-                <p class="card-text">Registrados en el sistema</p>
+                <p class="card-text text-secondary">Registrados en el sistema</p>
                 <a asp-controller="Materiales" asp-action="Index" class="btn btn-outline-light">Ver m&aacute;s</a>
             </div>
         </div>
     </div>
-    <div class="col-md-4 mb-4">
-        <div class="card text-white bg-info shadow">
+    <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.1s">
+        <div class="card card-dashboard blue">
             <div class="card-body text-center">
                 <h5 class="card-title">Publicaciones</h5>
                 <h2 class="display-4">@ViewBag.TotalPublicaciones</h2>
-                <p class="card-text">Publicaciones activas</p>
+                <p class="card-text text-secondary">Publicaciones activas</p>
                 <a asp-controller="Publicaciones" asp-action="Index" class="btn btn-outline-light">Ver m&aacute;s</a>
             </div>
         </div>
     </div>
     @if (esAdmin)
     {
-        <div class="col-md-4 mb-4">
-            <div class="card text-white bg-primary shadow">
+        <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.2s">
+            <div class="card card-dashboard purple">
                 <div class="card-body text-center">
                     <h5 class="card-title">Centros</h5>
                     <h2 class="display-4">@ViewBag.TotalCentros</h2>
-                    <p class="card-text">Centros registrados</p>
+                    <p class="card-text text-secondary">Centros registrados</p>
                     <a asp-controller="CentrosReciclaje" asp-action="Index" class="btn btn-outline-light">Ver m&aacute;s</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="card text-white bg-secondary shadow">
+        <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.3s">
+            <div class="card card-dashboard orange">
                 <div class="card-body text-center">
                     <h5 class="card-title">Usuarios</h5>
                     <h2 class="display-4">@ViewBag.TotalUsuarios</h2>
-                    <p class="card-text">Registrados</p>
+                    <p class="card-text text-secondary">Registrados</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="card text-white bg-warning shadow">
+        <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.4s">
+            <div class="card card-dashboard teal">
                 <div class="card-body text-center">
                     <h5 class="card-title">Puntos Totales</h5>
                     <h2 class="display-4">@ViewBag.TotalPuntos</h2>
-                    <p class="card-text">Otorgados en total</p>
+                    <p class="card-text text-secondary">Otorgados en total</p>
                 </div>
             </div>
         </div>
     }
     else
     {
-        <div class="col-md-4 mb-4">
-            <div class="card text-white bg-warning shadow">
+        <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.2s">
+            <div class="card card-dashboard orange">
                 <div class="card-body text-center">
                     <h5 class="card-title">Mis Puntos</h5>
                     <h2 class="display-4">@ViewBag.TotalPuntosUsuario</h2>
-                    <p class="card-text">Acumulados</p>
+                    <p class="card-text text-secondary">Acumulados</p>
                     <a asp-controller="Recompensas" asp-action="Index" class="btn btn-outline-light">Ver m&aacute;s</a>
                 </div>
             </div>
