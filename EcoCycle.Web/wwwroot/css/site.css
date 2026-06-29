@@ -80,6 +80,31 @@ body {
     transition: background var(--transition-speed), border-color var(--transition-speed);
 }
 
+.navbar-ecocycle .container-fluid{
+    display:flex;
+    align-items:center;
+}
+
+.navbar-ecocycle .dropdown{
+    display:flex;
+    align-items:center;
+}
+
+.navbar-ecocycle .dropdown-toggle{
+    display:flex !important;
+    align-items:center;
+    white-space:nowrap;
+}
+
+.theme-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:48px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+}
 .navbar-ecocycle .navbar-brand {
     font-size: 1.3rem;
     font-weight: 700;

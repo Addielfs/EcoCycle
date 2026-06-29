@@ -70,41 +70,58 @@
                     }
                 </ul>
             </div>
-            <ul class="navbar-nav ms-auto d-flex align-items-center gap-2">
-                <li class="nav-item">
-                    <button id="themeToggle" class="theme-toggle" title="Cambiar tema">
-                        <i id="themeIcon" class="bi bi-moon-fill"></i>
-                    </button>
-                </li>
+            <ul class="navbar-nav ms-auto d-flex flex-row align-items-center gap-3">
+
                 @if (!string.IsNullOrEmpty(Context.Session.GetString("Token")))
                 {
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-secondary" href="#" role="button" data-bs-toggle="dropdown">
+                    <!-- Correo -->
+                    <li class="nav-item">
+                        <span class="nav-link text-secondary mb-0">
                             <i class="bi bi-person-circle fs-5"></i>
-                            <span class="d-none d-md-inline">@Context.Session.GetString("Correo")</span>
+                            @Context.Session.GetString("Correo")
                             @if (esAdmin)
                             {
                                 <span class="badge bg-success ms-1">Admin</span>
                             }
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <form asp-controller="Auth" asp-action="Logout" method="post">
-                                    <button type="submit" class="dropdown-item">
-                                        <i class="bi bi-box-arrow-right"></i> Cerrar Sesi&oacute;n
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
+                        </span>
+                    </li>
+
+                    <!-- Modo oscuro -->
+                    <li class="nav-item">
+                        <button id="themeToggle"
+                                class="theme-toggle"
+                                title="Cambiar tema">
+                            <i id="themeIcon" class="bi bi-moon-fill"></i>
+                        </button>
+                    </li>
+
+                    <!-- Salir -->
+                    <li class="nav-item">
+                        <form asp-controller="Auth" asp-action="Logout" method="post" class="m-0">
+                            <button type="submit"
+                                    class="btn btn-link nav-link p-0"
+                                    title="Cerrar sesión">
+                                <i class="bi bi-box-arrow-right fs-5 text-danger"></i>
+                            </button>
+                        </form>
                     </li>
                 }
                 else
                 {
                     <li class="nav-item">
+                        <button id="themeToggle"
+                                class="theme-toggle"
+                                title="Cambiar tema">
+                            <i id="themeIcon" class="bi bi-moon-fill"></i>
+                        </button>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" asp-controller="Auth" asp-action="Login">
-                            <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesi&oacute;n
+                            <i class="bi bi-box-arrow-in-right"></i> Iniciar sesión
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Auth" asp-action="Register">
                             <i class="bi bi-person-plus"></i> Registro
