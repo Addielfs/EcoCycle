@@ -9,33 +9,88 @@
                 <h4>EcoCycle</h4>
                 <p class="text-muted small mb-0">Crea tu cuenta gratuita</p>
             </div>
+
             <div class="card-body">
                 <form method="post">
+
                     <div class="mb-3">
                         <label class="form-label">Correo electr&oacute;nico</label>
-                        <input type="email" name="correo" class="form-control" placeholder="tu@correo.com" required />
+                        <input type="email"
+                               name="correo"
+                               class="form-control"
+                               placeholder="tu@correo.com"
+                               required />
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label">Contrase&ntilde;a</label>
-                        <input type="password" name="contrasena" class="form-control" placeholder="M&iacute;nimo 6 caracteres" required minlength="6" />
+
+                        <input type="password"
+                               id="contrasena"
+                               name="contrasena"
+                               class="form-control"
+                               placeholder="Ingresa tu contraseña"
+                               required
+                               minlength="6" />
+
+                        <small id="mensajeContrasena"
+                               class="text-danger"
+                               style="display:none;">
+                        </small>
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label">Tel&eacute;fono</label>
-                        <input type="text" name="telefono" class="form-control" placeholder="Opcional" />
+                        <input type="text"
+                               name="telefono"
+                               class="form-control"
+                               placeholder="Opcional" />
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label">Direcci&oacute;n</label>
-                        <input type="text" name="direccion" class="form-control" placeholder="Opcional" />
+                        <input type="text"
+                               name="direccion"
+                               class="form-control"
+                               placeholder="Opcional" />
                     </div>
-                    <button type="submit" class="btn btn-success w-100 mt-2">Crear Cuenta</button>
+
+                    <button type="submit" class="btn btn-success w-100 mt-2">
+                        Crear Cuenta
+                    </button>
+
                 </form>
+
                 <div class="auth-divider">
                     <span>¿Ya tienes cuenta?</span>
                 </div>
+
                 <div class="text-center">
-                    <a asp-action="Login" class="btn btn-outline-success w-100">Iniciar sesi&oacute;n</a>
+                    <a asp-action="Login" class="btn btn-outline-success w-100">
+                        Iniciar sesi&oacute;n
+                    </a>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    const password = document.getElementById("contrasena");
+    const mensaje = document.getElementById("mensajeContrasena");
+
+    password.addEventListener("input", function () {
+
+        if (this.value.length > 0 && this.value.length < 6) {
+            mensaje.style.display = "block";
+            mensaje.textContent = "La contraseña debe tener al menos 6 caracteres.";
+            this.style.borderColor = "#dc3545";
+        }
+        else {
+            mensaje.style.display = "none";
+            this.style.borderColor = "";
+        }
+
+    });
+</script>
