@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "Iniciar Sesi\u00F3n";
+    ViewData["Title"] = "Iniciar Sesión";
 }
 
 <div class="auth-container">
@@ -7,27 +7,89 @@
         <div class="card shadow-lg pulse-glow">
             <div class="card-header">
                 <h4>EcoCycle</h4>
-                <p class="text-muted small mb-0">Inicia sesi&oacute;n en tu cuenta</p>
+                <p class="text-muted small mb-0">Inicia sesión en tu cuenta</p>
             </div>
+
             <div class="card-body">
                 <form method="post">
+
                     <div class="mb-3">
-                        <label class="form-label">Correo electr&oacute;nico</label>
-                        <input type="email" name="correo" class="form-control" placeholder="tu@correo.com" required />
+                        <label class="form-label">Correo electrónico</label>
+                        <input type="email"
+                               name="correo"
+                               class="form-control"
+                               placeholder="Ingresa tu correo electrónico"
+                               required />
                     </div>
+
                     <div class="mb-3">
-                        <label class="form-label">Contrase&ntilde;a</label>
-                        <input type="password" name="contrasena" class="form-control" placeholder="••••••••" required />
+                        <label class="form-label">Contraseña</label>
+
+                        <div class="input-group">
+
+                            <input type="password"
+                                   id="contrasena"
+                                   name="contrasena"
+                                   class="form-control"
+                                   placeholder="Ingresa tu contraseña"
+                                   required />
+
+                            <button class="btn btn-outline-secondary"
+                                    type="button"
+                                    id="mostrarPassword"
+                                    title="Mostrar u ocultar contraseña">
+
+                                <i class="bi bi-eye" id="iconoPassword"></i>
+
+                            </button>
+
+                        </div>
+
                     </div>
-                    <button type="submit" class="btn btn-success w-100 mt-2">Iniciar Sesi&oacute;n</button>
+
+                    <button type="submit" class="btn btn-success w-100 mt-2">
+                        Iniciar Sesión
+                    </button>
+
                 </form>
+
                 <div class="auth-divider">
                     <span>¿No tienes cuenta?</span>
                 </div>
+
                 <div class="text-center">
-                    <a asp-action="Register" class="btn btn-outline-success w-100">Crear cuenta</a>
+                    <a asp-action="Register" class="btn btn-outline-success w-100">
+                        Crear cuenta
+                    </a>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
+
+<script>
+
+    const password = document.getElementById("contrasena");
+    const boton = document.getElementById("mostrarPassword");
+    const icono = document.getElementById("iconoPassword");
+
+    boton.addEventListener("click", function () {
+
+        if (password.type === "password") {
+
+            password.type = "text";
+            icono.classList.remove("bi-eye");
+            icono.classList.add("bi-eye-slash");
+
+        } else {
+
+            password.type = "password";
+            icono.classList.remove("bi-eye-slash");
+            icono.classList.add("bi-eye");
+
+        }
+
+    });
+
+</script>
