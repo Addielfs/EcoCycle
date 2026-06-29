@@ -14,45 +14,59 @@
                 <form method="post">
 
                     <div class="mb-3">
-                        <label class="form-label">Correo electr&oacute;nico</label>
+                        <label class="form-label">Correo electrónico</label>
                         <input type="email"
                                name="correo"
                                class="form-control"
-                               placeholder="tu@correo.com"
+                               placeholder="Ingresa tu correo electrónico"
                                required />
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Contrase&ntilde;a</label>
+                        <label class="form-label">Contraseña</label>
 
-                        <input type="password"
-                               id="contrasena"
-                               name="contrasena"
-                               class="form-control"
-                               placeholder="Ingresa tu contraseña"
-                               required
-                               minlength="6" />
+                        <div class="input-group">
+
+                            <input type="password"
+                                   id="contrasena"
+                                   name="contrasena"
+                                   class="form-control"
+                                   placeholder="Crea una contraseña"
+                                   required
+                                   minlength="8" />
+
+                            <button class="btn btn-outline-secondary"
+                                    type="button"
+                                    id="mostrarPassword"
+                                    title="Mostrar u ocultar contraseña">
+
+                                <i class="bi bi-eye" id="iconoPassword"></i>
+
+                            </button>
+
+                        </div>
 
                         <small id="mensajeContrasena"
                                class="text-danger"
                                style="display:none;">
                         </small>
+
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Tel&eacute;fono</label>
+                        <label class="form-label">Teléfono</label>
                         <input type="text"
                                name="telefono"
                                class="form-control"
-                               placeholder="Opcional" />
+                               placeholder="Ingresa tu número de teléfono (opcional)" />
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Direcci&oacute;n</label>
+                        <label class="form-label">Dirección</label>
                         <input type="text"
                                name="direccion"
                                class="form-control"
-                               placeholder="Opcional" />
+                               placeholder="Ingresa tu dirección (opcional)" />
                     </div>
 
                     <button type="submit" class="btn btn-success w-100 mt-2">
@@ -67,7 +81,7 @@
 
                 <div class="text-center">
                     <a asp-action="Login" class="btn btn-outline-success w-100">
-                        Iniciar sesi&oacute;n
+                        Iniciar sesión
                     </a>
                 </div>
 
@@ -77,20 +91,45 @@
 </div>
 
 <script>
+
     const password = document.getElementById("contrasena");
     const mensaje = document.getElementById("mensajeContrasena");
+    const boton = document.getElementById("mostrarPassword");
+    const icono = document.getElementById("iconoPassword");
 
     password.addEventListener("input", function () {
 
-        if (this.value.length > 0 && this.value.length < 6) {
+        if (this.value.length > 0 && this.value.length < 8) {
+
             mensaje.style.display = "block";
-            mensaje.textContent = "La contraseña debe tener al menos 6 caracteres.";
+            mensaje.textContent = "La contraseña debe contener al menos 8 caracteres.";
             this.style.borderColor = "#dc3545";
-        }
-        else {
+
+        } else {
+
             mensaje.style.display = "none";
             this.style.borderColor = "";
+
         }
 
     });
+
+    boton.addEventListener("click", function () {
+
+        if (password.type === "password") {
+
+            password.type = "text";
+            icono.classList.remove("bi-eye");
+            icono.classList.add("bi-eye-slash");
+
+        } else {
+
+            password.type = "password";
+            icono.classList.remove("bi-eye-slash");
+            icono.classList.add("bi-eye");
+
+        }
+
+    });
+
 </script>
