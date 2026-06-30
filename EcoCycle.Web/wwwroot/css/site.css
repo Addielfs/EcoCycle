@@ -66,7 +66,6 @@ body {
     font-family: var(--font-primary);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    margin-bottom: 60px;
     transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
@@ -675,4 +674,18 @@ body {
         border-right: none;
         border-bottom: 1px solid var(--border-color);
     }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container-fluid.flex-grow-1 {
+    flex: 1;
+}
+
+.footer {
+    margin-top: auto;
 }

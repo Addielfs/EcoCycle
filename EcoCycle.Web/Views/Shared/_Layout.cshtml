@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     @{
         var esAdmin = Context.Session.GetString("Rol") == "Admin";
     }
@@ -151,8 +151,8 @@
         }
     }
 
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container-fluid flex-grow-1">
+        <div class="row h-100">
             @if (!string.IsNullOrEmpty(Context.Session.GetString("Token")))
             {
                 <nav class="col-md-2 d-none d-md-block sidebar min-vh-100 p-3">
@@ -281,18 +281,15 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
+   <script>
         function confirmarCerrarSesion() {
 
             const tema = document.documentElement.getAttribute("data-bs-theme");
             const oscuro = tema === "dark";
 
             Swal.fire({
-                title: '¿Cerrar sesión?',
-                html: `
-                    <p>Estás a punto de salir de <strong>EcoCycle</strong>.</p>
-                    <p>¿Deseas continuar?</p>
-                `,
+                title: 'Cerrar sesión',
+                text: '¿Seguro que quieres cerrar sesión?',
                 icon: 'question',
 
                 background: oscuro ? '#1f2937' : '#ffffff',
@@ -300,14 +297,19 @@
 
                 iconColor: '#198754',
 
+                showCancelButton: true,
+
                 confirmButtonColor: '#198754',
                 cancelButtonColor: '#6c757d',
 
-                confirmButtonText: '<i class="bi bi-box-arrow-right"></i> Sí, cerrar sesión',
-                cancelButtonText: '<i class="bi bi-x-circle"></i> Cancelar',
+                confirmButtonText: 'Cerrar sesión',
+                cancelButtonText: 'Cancelar',
 
                 reverseButtons: true,
                 focusCancel: true,
+
+                allowOutsideClick: true,   // Se puede cerrar haciendo clic fuera
+                allowEscapeKey: true,      // Se puede cerrar con la tecla Esc
 
                 customClass: {
                     popup: 'rounded-4 shadow-lg'
