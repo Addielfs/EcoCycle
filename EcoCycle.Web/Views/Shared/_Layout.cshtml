@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     @{
         var esAdmin = Context.Session.GetString("Rol") == "Admin";
     }
@@ -151,8 +151,8 @@
         }
     }
 
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container-fluid flex-grow-1">
+        <div class="row h-100">
             @if (!string.IsNullOrEmpty(Context.Session.GetString("Token")))
             {
                 <nav class="col-md-2 d-none d-md-block sidebar min-vh-100 p-3">
