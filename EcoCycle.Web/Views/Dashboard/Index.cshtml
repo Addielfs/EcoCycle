@@ -11,6 +11,9 @@
     <div class="col-md-4 mb-4 fade-in">
         <div class="card card-dashboard green">
             <div class="card-body text-center">
+                <div class="dashboard-icon">
+                    <i class="bi bi-recycle"></i>
+                </div>
                 <h5 class="card-title">Materiales</h5>
                 <h2 class="display-4">@ViewBag.TotalMateriales</h2>
                 <p class="card-text text-secondary">Registrados en el sistema</p>
@@ -18,9 +21,13 @@
             </div>
         </div>
     </div>
+
     <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.1s">
         <div class="card card-dashboard blue">
             <div class="card-body text-center">
+                <div class="dashboard-icon">
+                    <i class="bi bi-file-earmark-text"></i>
+                </div>
                 <h5 class="card-title">Publicaciones</h5>
                 <h2 class="display-4">@ViewBag.TotalPublicaciones</h2>
                 <p class="card-text text-secondary">Publicaciones activas</p>
@@ -28,11 +35,15 @@
             </div>
         </div>
     </div>
+
     @if (esAdmin)
     {
         <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.2s">
             <div class="card card-dashboard purple">
                 <div class="card-body text-center">
+                    <div class="dashboard-icon">
+                        <i class="bi bi-geo-alt-fill"></i>
+                    </div>
                     <h5 class="card-title">Centros</h5>
                     <h2 class="display-4">@ViewBag.TotalCentros</h2>
                     <p class="card-text text-secondary">Centros registrados</p>
@@ -40,18 +51,26 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.3s">
             <div class="card card-dashboard orange">
                 <div class="card-body text-center">
+                    <div class="dashboard-icon">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
                     <h5 class="card-title">Usuarios</h5>
                     <h2 class="display-4">@ViewBag.TotalUsuarios</h2>
                     <p class="card-text text-secondary">Registrados</p>
                 </div>
             </div>
         </div>
+
         <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.4s">
             <div class="card card-dashboard teal">
                 <div class="card-body text-center">
+                    <div class="dashboard-icon">
+                        <i class="bi bi-star-fill"></i>
+                    </div>
                     <h5 class="card-title">Puntos Totales</h5>
                     <h2 class="display-4">@ViewBag.TotalPuntos</h2>
                     <p class="card-text text-secondary">Otorgados en total</p>
@@ -64,6 +83,9 @@
         <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.2s">
             <div class="card card-dashboard orange">
                 <div class="card-body text-center">
+                    <div class="dashboard-icon">
+                        <i class="bi bi-star-fill"></i>
+                    </div>
                     <h5 class="card-title">Mis Puntos</h5>
                     <h2 class="display-4">@ViewBag.TotalPuntosUsuario</h2>
                     <p class="card-text text-secondary">Acumulados</p>

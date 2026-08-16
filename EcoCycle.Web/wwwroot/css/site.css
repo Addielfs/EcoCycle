@@ -724,3 +724,12 @@ body {
 .footer {
     margin-top: auto;
 }
+.dashboard-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.dashboard-icon i {
+    display: inline-block;
+}
